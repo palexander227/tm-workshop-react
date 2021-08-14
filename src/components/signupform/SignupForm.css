@@ -49,7 +49,7 @@
 }
 
 @media (max-width: 768px) {
-  .signin-form {
+  .signup-form {
     padding: 20px;
   }
 }
