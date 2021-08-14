@@ -1,21 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SigninForm.css";
-import { Checkbox, Form, Button, Input, Row, Col } from "antd";
+import { Checkbox, Form, Button, Input, Row, Col, message } from "antd";
 import LockIcon from "../../components/Icon/LockIcon";
 import UserIcon from "../../components/Icon/UserIcon";
 import { Link } from "react-router-dom";
+import userServ from "../../service/user";
+import { useDispatch } from "react-redux";
+import { actionLogin } from "../../store/reducer/user";
 
 const SigninForm = () => {
+  //state
+  const [isloading, setIsLoading] = useState(false);
+
+  //redux
+  const dispatch = useDispatch();
+
+  //handler
+  const handleSignin = async (loginInfo) => {
+    setIsLoading(true);
+    try {
+      const res = await userServ.login(loginInfo);
+      const { token, user } = res;
+
+      dispatch(actionLogin(user, token)); //store in redux and mark as login
+    } catch (err) {
+      message.error("Login Fail. Reason: " + err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Row className="signin-container">
-      <Col xs={22} sm={22} md={13} lg={10} xl={8} className="signin-form">
+      <Col xs={22} sm={22} md={13} lg={10} xl={7} className="signin-form">
         <h1>LOGIN</h1>
-        <Form
-          name="normal_login"
-          autoFocus={true}
-
-          // onFinish={handleSignin}
-        >
+        <Form name="normal_login" autoFocus={true} onFinish={handleSignin}>
           <Form.Item
             name="username"
             rules={[{ required: true, message: "User name is required!" }]}
@@ -34,17 +53,13 @@ const SigninForm = () => {
             />
           </Form.Item>
 
-          <Row className="forgot-pass">
-            <Checkbox>Remember me</Checkbox>
-            <Link to={""}>Forgot Password?</Link>
-          </Row>
-
           <Form.Item className="submitItem">
             <Button
               type="primary"
               size="large"
               htmlType="submit"
               className="login-form-button"
+              loading={isloading}
             >
               Login
             </Button>

@@ -38,7 +38,7 @@ module.exports = override(
     javascriptEnabled: true,
     modifyVars: {
       //Theme
-      "@primary-color": "#e74c3c",
+      "@primary-color": "#EE5A24",
       "@body-background": "#ffffff",
       "@font-family": "Montserrat",
       "@code-family": "Montserrat",

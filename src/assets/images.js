@@ -6,4 +6,5 @@ export const images = {
   logo: require("./images/logo.png"),
   userIcon: require("./images/user.png"),
   lockIcon: require("./images/lock.png"),
+  dotIcon: require("./images/dot.png"),
 };

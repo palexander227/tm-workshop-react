@@ -6,6 +6,9 @@ import Loader from "./components/loader";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
+window.store = store;
+console.log("Store updated", store.getState());
+
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
     <Provider store={store}>

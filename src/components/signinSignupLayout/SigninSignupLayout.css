@@ -5,11 +5,10 @@
 
 .login-bg img {
   position: absolute;
-  width: 50%;
-  height: 100vh;
+  width: 48%;
+  height: 100%;
   object-fit: cover;
   z-index: 1;
-  /* display: none; */
 }
 
 .logo img {
@@ -43,7 +42,8 @@
 }
 
 @media (max-width: 992px) {
-  .login-bg img {
+  .login-bg img,
+  .photo img {
     display: none;
   }
 }

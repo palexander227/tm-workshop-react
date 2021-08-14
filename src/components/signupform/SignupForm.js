@@ -1,17 +1,31 @@
 import React, { useState } from "react";
 import "./SignupForm.css";
-import { Radio, Form, Button, Input, Row, Col } from "antd";
+import { Radio, Form, Button, Input, Row, Col, message } from "antd";
 import LockIcon from "../../components/Icon/LockIcon";
 import UserIcon from "../../components/Icon/UserIcon";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import userServ from "../../service/user";
 
 const SignupForm = () => {
   const [valued, setValue] = React.useState(1);
   const [role, setRole] = useState("teacher");
+  const [isloading, setIsLoading] = useState(false);
 
-  const handleSignup = (value) => {
+  //router
+  const history = useHistory();
+
+  const handleSignup = async (value) => {
+    setIsLoading(true);
     value.role = role;
-    console.log(value);
+    try {
+      const res = await userServ.signup(value);
+      message.success(res.message);
+      setTimeout(() => history.push("/login"), 1000); //redirect to login
+    } catch (err) {
+      message.error("Unable to create new account. Reason: " + err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onChange = (e) => {
@@ -25,7 +39,7 @@ const SignupForm = () => {
 
   return (
     <Row className="signup-container">
-      <Col xs={22} sm={22} md={13} lg={10} xl={8} className="signup-form">
+      <Col xs={22} sm={22} md={13} lg={10} xl={7} className="signup-form">
         <h1>REGISTER</h1>
         <Form name="normal_login" autoFocus={true} onFinish={handleSignup}>
           <Form.Item
@@ -72,8 +86,9 @@ const SignupForm = () => {
               size="large"
               htmlType="submit"
               className="login-form-button"
+              loading={isloading}
             >
-              Login
+              Register
             </Button>
           </Form.Item>
 
