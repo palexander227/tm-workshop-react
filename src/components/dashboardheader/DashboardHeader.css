@@ -9,10 +9,7 @@
 }
 
 .header img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  cursor: pointer;
+  width: 100px;
 }
 
 .username {
@@ -20,14 +17,21 @@
   padding-right: 10px;
 }
 
-@media (min-width: 576px) {
-  .formobile {
-    display: none;
-  }
+.userdropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 576px) {
-  .forDesktop {
-    display: none;
-  }
+.user-Icon {
+  cursor: pointer;
+}
+
+.profile {
+  width: 150px;
+  height: 40px;
+}
+
+.profile:hover {
+  color: #4771bb;
 }

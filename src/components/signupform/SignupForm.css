@@ -64,6 +64,10 @@
   border-color: #00cec9;
 }
 
+.reg-username .ant-input {
+  text-transform: lowercase !important;
+}
+
 @media (max-width: 768px) {
   .signup-form {
     padding: 20px;

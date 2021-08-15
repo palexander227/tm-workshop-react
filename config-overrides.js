@@ -38,7 +38,7 @@ module.exports = override(
     javascriptEnabled: true,
     modifyVars: {
       //Theme
-      "@primary-color": "#EE5A24",
+      "@primary-color": "#4771BB",
       "@body-background": "#ffffff",
       "@font-family": "Montserrat",
       "@code-family": "Montserrat",
@@ -62,7 +62,7 @@ module.exports = override(
       "@select-border-color": "#dddddd",
       "@select-item-selected-font-weight": "500",
       "@select-dropdown-height": "34px",
-      "@select-item-selected-bg": "@primary-color",
+      "@select-item-selected-bg": "#4771BB",
       "@select-item-selected-color": "#fff",
       "@select-border-color": "#dddddd",
       "@select-dropdown-font-size": "14px",

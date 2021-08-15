@@ -58,6 +58,7 @@ const SignupForm = () => {
 
           <Form.Item
             name="username"
+            className="reg-username"
             rules={[{ required: true, message: "User name is required!" }]}
           >
             <Input prefix={<UserIcon />} placeholder="User Name" />

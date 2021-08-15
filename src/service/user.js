@@ -16,9 +16,14 @@ function getUserById(id) {
   return http.get(`user/${id}`);
 }
 
+function updateUser(userInfo) {
+  return http.put(`user`, userInfo);
+}
+
 export default {
   login,
   signup,
   getAllUser,
   getUserById,
+  updateUser,
 };

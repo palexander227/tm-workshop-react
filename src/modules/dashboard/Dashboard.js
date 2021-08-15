@@ -6,14 +6,17 @@ import "./Dashboard.css";
 import workspaceServ from "../../service/workspace";
 import Loader from "../../components/loader";
 import { Alert } from "antd";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const [workspace, setWorkspace] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useSelector((state) => state.userStore);
 
   const fetchAllWorkSpace = async () => {
     try {
       const res = await workspaceServ.getAllWorkSpace();
+      console.log("workkkkk", res.workspaces);
       setWorkspace(res.workspaces);
     } catch (err) {
       console.log(err);
@@ -38,13 +41,22 @@ const Dashboard = () => {
 
             {workspace?.length === 0 ? (
               <div className="work-message">
-                <Alert message="No workspace available" type="warning" />
+                <Alert
+                  message={
+                    user.role === "teacher"
+                      ? "No workspace available!"
+                      : "No workspace available! Please contact your teacher."
+                  }
+                  type="warning"
+                />
               </div>
             ) : (
               <div className="workspce-card ">
                 {workspace.map((work) => (
                   <WorkspaceCard
-                    workspace={work}
+                    key={work?.workspace?.id}
+                    count={work.count}
+                    workspace={work.workspace}
                     fetchAllWorkSpace={fetchAllWorkSpace}
                   />
                 ))}
