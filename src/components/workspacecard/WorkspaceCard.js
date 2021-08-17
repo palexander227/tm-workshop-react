@@ -66,7 +66,7 @@ const WorkspaceCard = ({ workspace, count, fetchAllWorkSpace }) => {
     }
   };
 
-  function confirmDeleteCategory() {
+  function confirmDeleteWorkspace() {
     confirm({
       title: "Are you sure delete this workspace?",
       icon: <ExclamationCircleOutlined />,
@@ -91,7 +91,7 @@ const WorkspaceCard = ({ workspace, count, fetchAllWorkSpace }) => {
       <Menu.Item className="update" onClick={showModal}>
         Update
       </Menu.Item>
-      <Menu.Item className="update" onClick={confirmDeleteCategory}>
+      <Menu.Item className="update" onClick={confirmDeleteWorkspace}>
         Delete
       </Menu.Item>
     </Menu>

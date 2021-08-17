@@ -21,7 +21,6 @@ const CreateWorkspace = ({ fetchAllWorkSpacedd }) => {
 
     try {
       const res = await workspaceServ.createWorkspace(workspaceInfo);
-      console.log(res);
       message.success(res.message);
       fetchAllWorkSpacedd();
     } catch (err) {
@@ -59,7 +58,9 @@ const CreateWorkspace = ({ fetchAllWorkSpacedd }) => {
   }, []);
   return (
     <div>
-      <Button onClick={showModal}>Create new workspace</Button>
+      <Button type="primary" onClick={showModal}>
+        Add workspace
+      </Button>
       <Modal
         title="Add new workspace"
         visible={isModalVisible}

@@ -1,0 +1,26 @@
+.ant-drawer-body {
+  padding: unset !important;
+}
+
+.search-box {
+  margin: 10px;
+  margin-right: 70px;
+}
+
+.ant-drawer-header-no-title .ant-drawer-close {
+  margin-right: 25px !important;
+}
+
+.anticon-close {
+  padding-top: 6px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #4771bb;
+  color: white;
+}
+
+.msg-icon {
+  width: 50px;
+  cursor: pointer;
+}

@@ -20,10 +20,15 @@ function updateUser(userInfo) {
   return http.put(`user`, userInfo);
 }
 
+function deleteUser() {
+  return http.delete(`user`);
+}
+
 export default {
   login,
   signup,
   getAllUser,
   getUserById,
   updateUser,
+  deleteUser,
 };

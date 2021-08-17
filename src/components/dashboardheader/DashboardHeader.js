@@ -25,7 +25,7 @@ const DashboardHeader = () => {
 
   return (
     <div className="header">
-      <img src={images.logo} alt="logo" />
+      <img onClick={() => history.push("/")} src={images.logo} alt="logo" />
       <div className="userdropdown">
         <span className="username forDesktop">{user.firstName}</span>
         <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>

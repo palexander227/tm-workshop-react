@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./SigninForm.css";
-import { Checkbox, Form, Button, Input, Row, Col, message } from "antd";
+import { Form, Button, Input, Row, Col, message } from "antd";
 import LockIcon from "../../components/Icon/LockIcon";
 import UserIcon from "../../components/Icon/UserIcon";
-import { Link } from "react-router-dom";
 import userServ from "../../service/user";
 import { useDispatch } from "react-redux";
 import { actionLogin } from "../../store/reducer/user";
+import { Link } from "react-router-dom";
 
 const SigninForm = () => {
   //state
@@ -36,6 +36,7 @@ const SigninForm = () => {
         <h1>LOGIN</h1>
         <Form name="normal_login" autoFocus={true} onFinish={handleSignin}>
           <Form.Item
+            className="user-name"
             name="username"
             rules={[{ required: true, message: "User name is required!" }]}
           >
