@@ -31,8 +31,11 @@
 .msg-box {
   position: fixed;
   bottom: 0;
+  right: 29%;
   display: flex !important;
 }
+
+/* ****************************** */
 
 @media (max-width: 576px) {
   .workspce-card {

@@ -74,7 +74,7 @@ const Dashboard = () => {
       const res = await workspaceServ.getAllWorkSpace();
       setWorkspace(res.workspaces);
     } catch (err) {
-      console.log(err);
+      message.error("Unable to fetch workspaces, please reload. Reason: " + err);
     } finally {
       setIsLoading(false);
     }
@@ -93,16 +93,15 @@ const Dashboard = () => {
   };
 
   const showMessenger = (id) => {
-    const neww = data.filter(
-      (item) => item.id == id && users[0]?.id !== item.id
-    );
-    if (neww.length > 0) {
-      if (users.length < 2) {
-        setUsers([...users, neww[0]]);
-      } else {
-        message.warning("Maximum two messenger allowed!");
-      }
+    const checkExistingUser = users.some((dataa) => dataa.id == id);
+    const filterUser = data.filter((item) => item.id == id && !checkExistingUser);
+
+    if (filterUser.length > 0) {
+      let newarr = [...users, filterUser[0]];
+      const getTwoUsers = newarr.slice(newarr?.length - 2, newarr?.length);
+      setUsers(getTwoUsers);
     }
+
   };
 
   return (
@@ -137,9 +136,9 @@ const Dashboard = () => {
               ))}
             </div>
           )}
-          <div className="message-icon">
-            <MessangerDrawer showMessenger={showMessenger} />
-          </div>
+
+          <MessangerDrawer showMessenger={showMessenger} />
+
           <div className="msg-box">
             {users.map((item) => (
               <ChatWindow key={item.id} item={item} handleClose={handleClose} />

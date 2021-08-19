@@ -23,7 +23,6 @@ const ChatWindow = ({ handleClose, item }) => {
           <div className="student-bx">
             <div className="student">I am doing great! Thanks.?</div>
           </div>
-          <div className="taecher">Hello how are you doing?</div>
         </div>
 
         <Form

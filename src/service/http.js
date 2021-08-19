@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const appServiceName = "https://thought-museum.herokuapp.com";
+const appServiceName = "https://thoughtmuseum-api.herokuapp.com";
 
 class RestfulProvider {
   constructor() {
@@ -36,7 +36,7 @@ class RestfulProvider {
         .catch((error) => {
           reject(
             error.response?.data?.message ||
-              "Server is down, please check after some time !!"
+              "Server is down, please check after some time!!"
           );
         });
     });

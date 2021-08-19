@@ -3,6 +3,7 @@ import "./MessangerDrawer.css";
 import { Drawer, Input } from "antd";
 import MiniChat from "../minichat/MiniChat";
 import { images } from "../../assets/images";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 
 const data = [
   {
@@ -58,48 +59,40 @@ const data = [
 ];
 
 const MessangerDrawer = ({ showMessenger }) => {
-  const [visible, setVisible] = useState(false);
-  const [filter, setFilter] = useState(data);
+  const [filterData, setFilterData] = useState(data);
+  const [showuser, setShowUser] = useState(false);
 
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(false);
-  };
-
-  const myfunnn = (e) => {
-    const dede = data.filter((user) =>
+  const handleSearch = (e) => {
+    const filterUser = data.filter((user) =>
       user.name.toLowerCase().includes(e?.target?.value.toLowerCase())
     );
 
-    setFilter(dede);
+    setFilterData(filterUser);
 
-    console.log(dede);
+  };
+
+  const handleShowHide = () => {
+    if (showuser === false) {
+      setShowUser(true);
+    } else {
+      setShowUser(false);
+    }
   };
 
   return (
-    <div>
-      <div className="msg-icon">
-        <img src={images.msgicon} alt="msgicon" onClick={showDrawer} />
+    <div className={showuser ? "chat-user active" : "chat-user"}>
+      <div className="arror" onClick={handleShowHide}>
+        {showuser ? <DownOutlined /> : <UpOutlined />}
+        <img src={images.msgicon} alt="msgicon" />
       </div>
-
-      <Drawer
-        width={350}
-        mask={false}
-        placement="right"
-        closable={false}
-        onClose={onClose}
-        visible={visible}
-        closable={true}
-      >
-        <div className="search-box">
-          <Input placeholder="Search..." onChange={myfunnn} />
-        </div>
-        {filter.map((item) => (
+      <div className="search-box">
+        <Input placeholder="Search..." onChange={handleSearch} />
+      </div>
+      <div className="user-list">
+        {filterData.map((item) => (
           <MiniChat showMessenger={showMessenger} item={item} />
         ))}
-      </Drawer>
+      </div>
     </div>
   );
 };
