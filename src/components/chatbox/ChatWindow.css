@@ -101,3 +101,16 @@
 .chat-window .ant-row .ant-form-item {
   margin-bottom: unset !important;
 }
+
+.ctudenttt {
+  display: flex !important;
+  justify-content: flex-end !important;
+  text-align: right;
+}
+
+.file-input-container input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}

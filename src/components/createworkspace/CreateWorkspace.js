@@ -46,7 +46,7 @@ const CreateWorkspace = ({ fetchAllWorkSpacedd }) => {
     try {
       const res = await userServ.getAllUser();
       const user = res.users?.filter((item) => item.role === "student");
-      console.log(user);
+
       setStudent(user);
     } catch (err) {
       message.error("Unable to fetch student, please reload. Reason: " + err);

@@ -17,7 +17,7 @@ const DashboardHeader = () => {
       <Menu.Item className="profile" onClick={() => history.push("/myprofile")}>
         My Profile
       </Menu.Item>
-      <Menu.Item className="profile" onClick={() => dispatch(actionLogout())}>
+      <Menu.Item className="profile" onClick={() => dispatch(actionLogout(user))}>
         Logout
       </Menu.Item>
     </Menu>

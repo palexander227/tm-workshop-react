@@ -9,80 +9,65 @@ import { Alert, message } from "antd";
 import { useSelector } from "react-redux";
 import ChatWindow from "../../components/chatbox/ChatWindow";
 import MessangerDrawer from "../../components/messangerdrawer/MessangerDrawer";
+import userServ from "../../service/user";
+import { io } from "socket.io-client";
+import chatServ from "../../service/chatroom";
 
-const data = [
-  {
-    id: 1,
-    name: "Britt Brooke",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 2,
-    name: "George Eads",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 3,
-    name: "Selena Gomez",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 4,
-    name: "James Franco",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 5,
-    name: "Dwayne Johnson",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 6,
-    name: "Octavia Spencer",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 7,
-    name: "Margot Robbie",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 8,
-    name: "Nicolas Cage",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 9,
-    name: "Tiffany Haddish",
-    lastmsg: "Thanks for helping me",
-  },
-  {
-    id: 10,
-    name: "Johnny Depp",
-    lastmsg: "Thanks for helping me",
-  },
-];
+const socket = io(`http://localhost:12000`);
+// const socket = io(`https://thoughtmuseum-api.herokuapp.com`);
 
 const Dashboard = () => {
   const [workspace, setWorkspace] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useSelector((state) => state.userStore);
   const [users, setUsers] = useState([]);
+  const [userData, setUserData] = useState([]);
+
+  const fetchAllUser = async () => {
+    try {
+      const res = await userServ.getAllUser();
+      setUserData(res.users);
+    } catch (err) {
+      message.error("Unable to fetch student, please reload. Reason: " + err);
+    } finally {
+      // setIsLoading(false);
+    }
+  };
 
   const fetchAllWorkSpace = async () => {
     try {
       const res = await workspaceServ.getAllWorkSpace();
       setWorkspace(res.workspaces);
     } catch (err) {
-      message.error("Unable to fetch workspaces, please reload. Reason: " + err);
+      message.error(
+        "Unable to fetch workspaces, please reload. Reason: " + err
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchAllWorkSpace();
+  useEffect(async () => {
+    await fetchAllUser();
+    await fetchAllWorkSpace();
+    await realTimeIntraction();
   }, []);
+
+  const realTimeIntraction = () => {
+    socket.emit("join", user.id);
+
+    socket.on('userOnline', (data) => {
+      console.log({data});
+    });
+
+    socket.on('userOffline', (data) => {
+      console.log({data});
+    })
+
+    socket.on('addMessage', (data) => {
+      console.log({data});
+    })
+  }
 
   const handleClose = (id) => {
     setUsers((preVal) => {
@@ -92,16 +77,17 @@ const Dashboard = () => {
     });
   };
 
-  const showMessenger = (id) => {
+  const showMessenger = async (id) => {
     const checkExistingUser = users.some((dataa) => dataa.id == id);
-    const filterUser = data.filter((item) => item.id == id && !checkExistingUser);
+    const filterUser = userData.filter(
+      (item) => item.id == id && !checkExistingUser
+    );
 
     if (filterUser.length > 0) {
       let newarr = [...users, filterUser[0]];
       const getTwoUsers = newarr.slice(newarr?.length - 2, newarr?.length);
       setUsers(getTwoUsers);
     }
-
   };
 
   return (

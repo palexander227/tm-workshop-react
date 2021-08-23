@@ -5,6 +5,7 @@ import { Button, Avatar, Input, Form, Collapse, message } from "antd";
 import TeacherPost from "../teacherpost/TeacherPost";
 import Loader from "../loader";
 import commentServ from "../../service/comment";
+import moment from "moment";
 
 const { Panel } = Collapse;
 
@@ -43,7 +44,7 @@ const PostwithComment = ({
               <Collapse ghost={true} collapsible="header">
                 <Panel
                   header={<TeacherPost item={item} userName={userName} />}
-                  key="1"
+                  key={item.id}
                   showArrow={false}
                 >
                   {item?.comments.map((item) => (
@@ -55,13 +56,16 @@ const PostwithComment = ({
                         <p>
                           {item.user.firstName} {item.user.lastName}
                         </p>
-                        <small>Aug 15</small>
+                        <small>
+                          {moment(item.createdAt).utc().format("MMM Do")}
+                        </small>
                         <p>{item.content}</p>
                       </div>
                     </div>
                   ))}
 
                   <Form
+                    key={item.id}
                     preserve={false}
                     className="kokoko"
                     form={form}

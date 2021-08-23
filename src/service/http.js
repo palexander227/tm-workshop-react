@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const appServiceName = "https://thoughtmuseum-api.herokuapp.com";
+// const appServiceName = "https://thoughtmuseum-api.herokuapp.com";
+const appServiceName = "http://localhost:12000";
 
 class RestfulProvider {
   constructor() {

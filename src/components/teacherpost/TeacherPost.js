@@ -3,10 +3,9 @@ import "./TeacherPost.css";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
-const TeacherPost = ({ item }) => {
-  const { user } = useSelector((state) => state.userStore);
-
+const TeacherPost = ({ item, userName }) => {
   return (
     <div className="teacher-post">
       <div className="user-icon">
@@ -17,9 +16,9 @@ const TeacherPost = ({ item }) => {
           <strong>{item.title}</strong>
         </p>
         <p>
-          {user.firstName} {user.lastName}
+          {userName.firstName} {userName.lastName}
         </p>
-        <small>Aug 15</small>
+        <small>{moment(item.createdAt).utc().format("MMM Do")}</small>
         <p>{item.content}</p>
       </div>
     </div>

@@ -1,4 +1,7 @@
 import { loginCache } from "../cache";
+import { io } from "socket.io-client";
+const socket = io(`http://localhost:12000`);
+
 
 const initialState = {
   token: null,
@@ -16,7 +19,9 @@ export const actionLogin = (user, token) => {
   return { type: LOGIN, payload: { user, token } };
 };
 
-export const actionLogout = (token) => {
+export const actionLogout = (user, token) => {
+  console.log({user});
+  socket.emit('leave', user.id)
   return { type: LOGOUT, payload: token };
 };
 

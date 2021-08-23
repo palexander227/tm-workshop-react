@@ -8,6 +8,10 @@ import { useDispatch } from "react-redux";
 import { actionLogin } from "../../store/reducer/user";
 import { Link } from "react-router-dom";
 
+import { io } from "socket.io-client";
+
+// const socket = io(`http://localhost:12000`);
+
 const SigninForm = () => {
   //state
   const [isloading, setIsLoading] = useState(false);
@@ -23,6 +27,8 @@ const SigninForm = () => {
       const { token, user } = res;
 
       dispatch(actionLogin(user, token)); //store in redux and mark as login
+      console.log("checkuserid", user.id);
+      // socket.emit("join", user.id);
     } catch (err) {
       message.error("Login Fail. Reason: " + err);
     } finally {

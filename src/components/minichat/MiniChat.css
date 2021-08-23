@@ -22,6 +22,14 @@
   margin-right: 5px;
 }
 
+.mini-chat .dot-online {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #52c41a;
+  margin-right: 5px;
+}
+
 .mini-chat .content {
   margin-left: 10px;
 }
