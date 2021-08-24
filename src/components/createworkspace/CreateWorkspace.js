@@ -13,7 +13,7 @@ const CreateWorkspace = ({ fetchAllWorkSpacedd }) => {
   const [student, setStudent] = useState([]);
   const [form] = Form.useForm();
 
-  const { user } = useSelector((state) => state.userStore);
+  const { user, chatUsers } = useSelector((state) => state.userStore);
 
   const handleCreateWorkspace = async (workspaceInfo) => {
     setIsLoading(true);
@@ -44,10 +44,7 @@ const CreateWorkspace = ({ fetchAllWorkSpacedd }) => {
   //GET ALL STUDENT TO CREATE WORKSPACE
   const fetchAllUser = async () => {
     try {
-      const res = await userServ.getAllUser();
-      const user = res.users?.filter((item) => item.role === "student");
-
-      setStudent(user);
+      userServ.getAllUser();
     } catch (err) {
       message.error("Unable to fetch student, please reload. Reason: " + err);
     }
@@ -56,6 +53,12 @@ const CreateWorkspace = ({ fetchAllWorkSpacedd }) => {
   useEffect(() => {
     fetchAllUser();
   }, []);
+
+  useEffect(() => {
+    const user = chatUsers?.filter((item) => item.role === "student");
+    setStudent(user);
+  }, [chatUsers])
+
   return (
     <div>
       <Button type="primary" onClick={showModal}>

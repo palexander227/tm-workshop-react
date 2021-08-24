@@ -11,10 +11,12 @@ import ChatWindow from "../../components/chatbox/ChatWindow";
 import MessangerDrawer from "../../components/messangerdrawer/MessangerDrawer";
 import userServ from "../../service/user";
 import { io } from "socket.io-client";
-import chatServ from "../../service/chatroom";
+import { store } from "./../../store";
+import { getNewMessage } from './../../store/reducer/message';
+import { updateUserAvailability } from './../../store/reducer/user';
 
-const socket = io(`http://localhost:12000`);
-// const socket = io(`https://thoughtmuseum-api.herokuapp.com`);
+//const socket = io(`http://localhost:12000`);
+const socket = io(`https://thoughtmuseum-api.herokuapp.com`);
 
 const Dashboard = () => {
   const [workspace, setWorkspace] = useState([]);
@@ -22,11 +24,11 @@ const Dashboard = () => {
   const { user } = useSelector((state) => state.userStore);
   const [users, setUsers] = useState([]);
   const [userData, setUserData] = useState([]);
+  const { chatUsers } = useSelector((state) => state.userStore);
 
   const fetchAllUser = async () => {
     try {
-      const res = await userServ.getAllUser();
-      setUserData(res.users);
+      userServ.getAllUser();
     } catch (err) {
       message.error("Unable to fetch student, please reload. Reason: " + err);
     } finally {
@@ -53,20 +55,27 @@ const Dashboard = () => {
     await realTimeIntraction();
   }, []);
 
+  useEffect(() => {
+    setUserData(chatUsers);
+  }, [chatUsers])
+
   const realTimeIntraction = () => {
     socket.emit("join", user.id);
 
     socket.on('userOnline', (data) => {
       console.log({data});
+      store.dispatch(updateUserAvailability(data));
     });
 
     socket.on('userOffline', (data) => {
       console.log({data});
+      store.dispatch(updateUserAvailability(data));
     })
 
     socket.on('addMessage', (data) => {
-      console.log({data});
+      store.dispatch(getNewMessage(data, data.senderId));
     })
+
   }
 
   const handleClose = (id) => {

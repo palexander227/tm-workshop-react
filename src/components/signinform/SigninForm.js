@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 import { io } from "socket.io-client";
 
-// const socket = io(`http://localhost:12000`);
+// const socket = io(`https://thoughtmuseum-api.herokuapp.com`);
 
 const SigninForm = () => {
   //state

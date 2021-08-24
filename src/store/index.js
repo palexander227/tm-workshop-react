@@ -1,12 +1,18 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, compose } from "redux";
 import { loginCache } from "./cache";
 import userReducer, { actionLogin } from "./reducer/user";
+import messageReducer from "./reducer/message";
 
 const rootReducer = combineReducers({
   userStore: userReducer,
+  messageStore: messageReducer
 });
 
-export const store = createStore(rootReducer);
+const enhancers = compose(
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+export const store = createStore(rootReducer, {}, enhancers);
 
 const [user, token, vendor, customer] = loginCache.fetch();
 if (user && token) {

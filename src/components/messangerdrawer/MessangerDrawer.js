@@ -65,13 +65,11 @@ const MessangerDrawer = ({ showMessenger }) => {
   const [userData, setUserData] = useState([]);
   const [filterData, setFilterData] = useState([]);
 
-  const { user } = useSelector((state) => state.userStore);
+  const { user, chatUsers } = useSelector((state) => state.userStore);
 
   const fetchAllUser = async () => {
     try {
-      const res = await userServ.getAllUser();
-      setUserData(res.users);
-      setFilterData(res.users);
+      userServ.getAllUser();
     } catch (err) {
       message.error("Unable to fetch student, please reload. Reason: " + err);
     } finally {
@@ -82,6 +80,11 @@ const MessangerDrawer = ({ showMessenger }) => {
   useEffect(() => {
     fetchAllUser();
   }, []);
+
+  useEffect(() => {
+    setUserData(chatUsers);
+    setFilterData(chatUsers);
+  }, [chatUsers])
 
   const handleSearch = (e) => {
     const filterUser = userData.filter((user) =>
