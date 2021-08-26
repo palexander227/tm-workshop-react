@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 import chatServ from "../../service/chatroom";
 import { useSelector } from "react-redux";
 
-const socket = io(`https://thoughtmuseum-api.herokuapp.com`);
+const socket = io(process.env.REACT_APP_API_SERVICE_URL);
 const { Search } = Input;
 
 const ChatWindow = ({ handleClose, item }) => {
