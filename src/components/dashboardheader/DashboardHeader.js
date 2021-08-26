@@ -22,12 +22,20 @@ const DashboardHeader = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const handleLogout = () => {
+    socket.emit("leave", user.id);
+    dispatch(actionLogout(user));
+  }
+
   useEffect(async () => {
     await realTimeIntraction();
-    return ()=>{ 
-      socket.disconnect(); 
-    }
   }, []);
+  useEffect(()=>{
+    return ()=>{
+      console.log('---exist--')
+      socket.removeAllListeners("addMessage");
+    }
+  }, [])
 
   useEffect(() => {
     setUserData(chatUsers);
@@ -42,7 +50,7 @@ const DashboardHeader = () => {
       <Menu.Item className="profile" onClick={() => history.push("/myprofile")}>
         My Profile
       </Menu.Item>
-      <Menu.Item className="profile" onClick={() => dispatch(actionLogout(user))}>
+      <Menu.Item className="profile" onClick={() => handleLogout()}>
         Logout
       </Menu.Item>
     </Menu>
