@@ -62,7 +62,7 @@ const DashboardHeader = () => {
     })
 
     socket.on('addMessage', (data) => {
-      console.log(data);
+      console.log(data, socket);
       if (data.senderId && data.recieverId && data.recieverId === user.id) openMessenger(data);
       store.dispatch(getNewMessage(data, data.senderId));
     })
