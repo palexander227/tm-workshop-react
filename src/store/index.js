@@ -8,9 +8,11 @@ const rootReducer = combineReducers({
   messageStore: messageReducer
 });
 
-const enhancers = compose(
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const enhancers =
+  (process.env.NODE_ENV !== 'production' &&
+    typeof window !== 'undefined' &&
+    compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())) ||
+  compose();
 
 export const store = createStore(rootReducer, {}, enhancers);
 
