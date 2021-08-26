@@ -8,9 +8,6 @@ import Loader from "../../components/loader";
 import { Alert, message } from "antd";
 import { useSelector } from "react-redux";
 import userServ from "../../service/user";
-import { io } from "socket.io-client";
-
-const socket = io(process.env.REACT_APP_API_SERVICE_URL);
 
 const Dashboard = () => {
   const [workspace, setWorkspace] = useState([]);

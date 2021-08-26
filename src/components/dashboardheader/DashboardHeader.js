@@ -24,6 +24,9 @@ const DashboardHeader = () => {
 
   useEffect(async () => {
     await realTimeIntraction();
+    return ()=>{ 
+      socket.disconnect(); 
+    }
   }, []);
 
   useEffect(() => {

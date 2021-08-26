@@ -8,10 +8,6 @@ import { useDispatch } from "react-redux";
 import { actionLogin } from "../../store/reducer/user";
 import { Link } from "react-router-dom";
 
-import { io } from "socket.io-client";
-
-// const socket = io(process.env.REACT_APP_API_SERVICE_URL);
-
 const SigninForm = () => {
   //state
   const [isloading, setIsLoading] = useState(false);

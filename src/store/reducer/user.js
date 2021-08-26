@@ -25,7 +25,6 @@ export const actionLogin = (user, token) => {
 };
 
 export const actionLogout = (user, token) => {
-  console.log(user.id)
   socket.emit('leave', user.id)
   return { type: LOGOUT, payload: token };
 };
