@@ -193,7 +193,7 @@ const ChatWindow = ({ handleClose, item }) => {
           {selectedFile && <div className="selected-file">{selectedFile}<CloseOutlined className="close-icon" onClick={removeFile}/></div>}
           <Form.Item name="message">
             <Search
-              placeholder="Tpye here.."
+              placeholder="Type here.."
               enterButton={<SendOutlined />}
               size="large"
               suffix={suffix}
