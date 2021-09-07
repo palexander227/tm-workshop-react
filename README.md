@@ -1,4 +1,20 @@
-# Getting Started with Create React App
+ Thoughtmuseum Workspaces
+
+## Description 
+
+This is an application which builds on project 2. It is intended to be included
+as a module in a wider application which is part of a learning management system. 
+
+This is the React app for this project, the API server can be seen on my github tm-workspaces-api.
+
+At the time of this submission, I have not yet completed this README. A much fuller and comprehensive
+discussion is under construction. 
+
+
+
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
